@@ -1,4 +1,4 @@
-﻿namespace ServiceB
+﻿namespace Subscriber
 {
     using System;
     using AppliedSystems.Core;

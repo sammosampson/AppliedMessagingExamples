@@ -1,7 +1,6 @@
-﻿namespace ServiceA
+﻿namespace Publisher
 {
     using System;
-    using System.Net;
     using SystemDot.Bootstrapping;
     using AppliedSystems.Messaging.EventStore.Http;
     using AppliedSystems.Messaging.EventStore.Http.Configuration;
