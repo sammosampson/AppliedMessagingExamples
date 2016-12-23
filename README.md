@@ -17,13 +17,18 @@ run it from admin cmd prompt with:
 
 Setup Applied HTTP EventStore service as follows:
 
-Download the TC build artifact containing the octopus package for the service from http://uk-devbs01:8888/repository/downloadAll/ConnectivityShared_MessagingHttp/247440:id/artifacts.zip
- - Copy the service '.nupkg' file from the artifact zip to a suitable place on your machine and rename it to a '.zip', then fianlly unzip that into the same location
+Download the TC build artifact containing the octopus package for the service from 
+
+<b>http://uk-devbs01:8888/repository/downloadAll/ConnectivityShared_MessagingHttp/247641:id/artifacts.zip</b>
+
+- Copy the service '.nupkg' file from the artifact zip to a suitable place on your machine and rename it to a '.zip', then fianlly unzip that into the same location
  - Edit the service '.config' file to set relevant url's if needed (its all setup to run local, so this is only needed for seperate machine installation)
  - Run the service exe as administrator. The service can be setup as a windows service if you wish to do so by running the exe with an "install" switch e.g "AppliedSystems.Messaging.EventStore.Http.Server.Service.exe install"
 
 Setup Applied HTTP EventStore subscriptions service as follows:
 
-Download and repeat the same process as above for http://uk-devbs01:8888/repository/downloadAll/ConnectivityShared_MessagingHttpReceiving/247439:id/artifacts.zip
+Download and repeat the same process as above for 
+
+<b>http://uk-devbs01:8888/repository/downloadAll/ConnectivityShared_MessagingHttpReceiving/247686:id/artifacts.zip</b>
 
 
