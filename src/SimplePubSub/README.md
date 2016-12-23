@@ -39,5 +39,37 @@ And that's it for the publisher, pressing 'P' will send that event.
 
 ##Subscriber
 
+This time program.cs contains our bootstrapping, but `PolicyBoundHandler` is where all the magic happens, i'e our received event is processed.
 
+First the bootstrapping:
+
+This time we specify an `HttpEventStoreSubscriberReceivingEndpoint` which means we want to subscribe to events published to event store
+
+```
+ HttpEventStoreSubscriberReceivingEndpoint eventStoreEndpoint = HttpEventStoreSubscriberReceivingEndpoint
+    .SubscribeToEventsFrom(HttpEventStoreSubscriptionServerUrl.Parse(eventStoreConfiguration.Url))
+    .RestartConnectionWhenDownDelay(TimeSpan.FromSeconds(eventStoreConfiguration.ConnectionDownRestartDelayInSeconds))
+    .RestartConnectionWhenErrorDelay(TimeSpan.FromSeconds(eventStoreConfiguration.ErrorRestartDelayInSeconds))
+    .WithEventTypeFromNameResolution(EventTypeFromNameResolver.FromTypesFromAssemblyContaining<PolicyBound>())
+    .WithInMemoryEventIndexStorage();
+```
+
+Line by line we:
+ - Set the eventstore subscribing service url
+ - Set a time to restart the connection if the subscription service is down
+ - Set a time to restart the connection if there is an error
+ - Set the place to find the event types from when deserialising the event store json representation into the actual .net event. This is needed as event store is completely unaware of the actual .net type, it only stores the dimple name e.g. "PolicyBound"
+ - Specify that we store the index of the last event processed by this subscriber in memory, this is how we know not to replay all events in a stream when restarting the service, although as we are using the in memory version, it is pretty useless as when we restart we will have lost the values stored and will replay the entire stream anyway. See the TransactionalEventProcessing examples for more useful going over of this.
+ 
+```
+MessagingFramework.Bootstrap()
+  .SetupMessaging()
+      .SetupHttpMessageReceiving()
+      .ConfigureReceivingEndpoint(eventStoreEndpoint)
+      .ConfigureMessageRouting()
+          .Incoming.ForEvents.Handle<PolicyBound>().With(new PolicyBoundHandler())
+  .Initialise();
+```
+
+Again we have to tell the framework about the endpoint, and then this time we are routing incoming events of type `PolicyBound` to the `PolicyBoundHandler` where it is processed.
 
