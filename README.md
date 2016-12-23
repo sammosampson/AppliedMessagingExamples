@@ -2,6 +2,8 @@
 
 This repository contains contains examples on how to use the Applied messaging framework. You'll find that each example has its own readme describing it so refer there if stuck
 
+##Setting up
+
 To run any of the examples you will need to have access to the uk applied nuget feed for the messaging pacakges (will soon be available on the main applied feed)
 You will also need to have the following services running:
 
@@ -30,5 +32,8 @@ Setup Applied HTTP EventStore subscriptions service as follows:
 Download and repeat the same process as above for 
 
 <b>http://uk-devbs01:8888/repository/downloadAll/ConnectivityShared_MessagingHttpReceiving/247686:id/artifacts.zip</b>
+
+##Where to look first
+A good place to start would be the SimplePubSub example as it is as the name suggests  he simplest of configurations to follow
 
 
