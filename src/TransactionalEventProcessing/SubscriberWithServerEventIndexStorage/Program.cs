@@ -3,6 +3,7 @@
     using System;
     using SystemDot.Bootstrapping;
     using AppliedSystems.Core;
+    using AppliedSystems.Data.Bootstrapping;
     using AppliedSystems.Messaging.EventStore.Http.Subscribing;
     using AppliedSystems.Messaging.EventStore.Http.Subscribing.Configuration;
     using AppliedSystems.Messaging.EventStore.Http.Subscribing.SystemDot.Bootstrapping;
@@ -23,20 +24,21 @@
                 .RestartConnectionWhenDownDelay(TimeSpan.FromSeconds(eventStoreConfiguration.ConnectionDownRestartDelayInSeconds))
                 .RestartConnectionWhenErrorDelay(TimeSpan.FromSeconds(eventStoreConfiguration.ErrorRestartDelayInSeconds))
                 .WithEventTypeFromNameResolution(EventTypeFromNameResolver.FromTypesFromAssemblyContaining<PolicyBound>())
-                .WithInMemoryEventIndexStorage();
+                .WithServerEventIndexStorage();
 
             MessagingFramework.Bootstrap()
+                .SetupDataConnectivity().WithSqlConnection()
                 .SetupMessaging()
                     .SetupHttpMessageReceiving()
                     .ConfigureReceivingEndpoint(eventStoreEndpoint)
                     .ConfigureMessageRouting()
-                        .Incoming.ForEvents.Handle<PolicyBound>().With(new PolicyBoundHandler())
+                        .Incoming.ForEvents.Handle<PolicyBound>().With<PolicyBoundHandler>()
                 .Initialise();
 
             MessageReceivingContext.MessageReceiver.StartReceiving(OnError);
-            MessageReceivingContext.Events.Subscribe(PolicyEventStreamId.Parse("ReallyGreatTenant1"));
+            MessageReceivingContext.Events.Subscribe(PolicyEventStreamId.Parse("EventIndexStorageExample"));
 
-            Console.WriteLine("I Am Service B");
+            Console.WriteLine("I Am SubscriberWithServerEventIndexStorage");
             Console.ReadLine();
 
             MessageReceivingContext.MessageReceiver.StopReceiving();

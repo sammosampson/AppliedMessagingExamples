@@ -34,9 +34,9 @@
                 .Initialise();
 
             MessageReceivingContext.MessageReceiver.StartReceiving(OnError);
-            MessageReceivingContext.Events.Subscribe(PolicyEventStreamId.Parse("ReallyGreatTenant1"));
+            MessageReceivingContext.Events.Subscribe(PolicyEventStreamId.Parse("SimplePubSubExample"));
 
-            Console.WriteLine("I Am Service B");
+            Console.WriteLine("I Am Subscriber");
             Console.ReadLine();
 
             MessageReceivingContext.MessageReceiver.StopReceiving();

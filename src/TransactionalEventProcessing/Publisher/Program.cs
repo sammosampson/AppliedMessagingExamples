@@ -27,7 +27,7 @@
                                 .ToEventStream(@event => PolicyEventStreamId.Parse(@event.TenantId))
                 .Initialise();
 
-            Console.WriteLine("I Am Service A");
+            Console.WriteLine("I Am Publisher");
 
             while (true)
             {
@@ -43,7 +43,7 @@
                 {
                     try
                     {
-                        MessageSendingContext.Bus.Send(new PolicyBound("ReallyGreatTenant1", "<Risk><DriverName>Darth Vader</DriverName></Risk>"));
+                        MessageSendingContext.Bus.Send(new PolicyBound(Guid.NewGuid(), "EventIndexStorageExample", "<Risk><DriverName>Darth Vader</DriverName></Risk>"));
                     }
                     catch (EventEndpointSendingException exception)
                     {

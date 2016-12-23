@@ -3,13 +3,14 @@
     using System;
     using SystemDot.Bootstrapping;
     using AppliedSystems.Core;
+    using AppliedSystems.Data.Bootstrapping;
+    using AppliedSystems.Messaging.Data.Bootstrapping;
     using AppliedSystems.Messaging.EventStore.Http.Subscribing;
     using AppliedSystems.Messaging.EventStore.Http.Subscribing.Configuration;
     using AppliedSystems.Messaging.EventStore.Http.Subscribing.SystemDot.Bootstrapping;
     using AppliedSystems.Messaging.Infrastructure;
     using AppliedSystems.Messaging.Infrastructure.Bootstrapping;
     using AppliedSystems.Messaging.Infrastructure.Events.Streams;
-    using AppliedSystems.Messaging.Infrastructure.Receiving;
     using Messages;
 
     class Program
@@ -23,20 +24,21 @@
                 .RestartConnectionWhenDownDelay(TimeSpan.FromSeconds(eventStoreConfiguration.ConnectionDownRestartDelayInSeconds))
                 .RestartConnectionWhenErrorDelay(TimeSpan.FromSeconds(eventStoreConfiguration.ErrorRestartDelayInSeconds))
                 .WithEventTypeFromNameResolution(EventTypeFromNameResolver.FromTypesFromAssemblyContaining<PolicyBound>())
-                .WithInMemoryEventIndexStorage();
+                .WithSqlDatabaseEventIndexStorage();
 
             MessagingFramework.Bootstrap()
+                .SetupDataConnectivity().WithSqlConnection()
                 .SetupMessaging()
                     .SetupHttpMessageReceiving()
                     .ConfigureReceivingEndpoint(eventStoreEndpoint)
                     .ConfigureMessageRouting()
-                        .Incoming.ForEvents.Handle<PolicyBound>().With(new PolicyBoundHandler())
+                        .Incoming.ForEvents.Handle<PolicyBound>().With<PolicyBoundHandler>()
                 .Initialise();
 
             MessageReceivingContext.MessageReceiver.StartReceiving(OnError);
-            MessageReceivingContext.Events.Subscribe(PolicyEventStreamId.Parse("ReallyGreatTenant12"));
+            MessageReceivingContext.Events.Subscribe(PolicyEventStreamId.Parse("EventIndexStorageExample"));
 
-            Console.WriteLine("I Am Service B");
+            Console.WriteLine("I Am SubscriberWithLocalEventIndexStorage");
             Console.ReadLine();
 
             MessageReceivingContext.MessageReceiver.StopReceiving();
