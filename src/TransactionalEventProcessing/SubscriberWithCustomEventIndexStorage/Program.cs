@@ -4,15 +4,12 @@
     using SystemDot.Bootstrapping;
     using AppliedSystems.Core;
     using AppliedSystems.Data.Bootstrapping;
-    using AppliedSystems.Messaging.Data;
-    using AppliedSystems.Messaging.Data.Bootstrapping;
     using AppliedSystems.Messaging.EventStore.Http.Subscribing;
     using AppliedSystems.Messaging.EventStore.Http.Subscribing.Configuration;
     using AppliedSystems.Messaging.EventStore.Http.Subscribing.SystemDot.Bootstrapping;
     using AppliedSystems.Messaging.Infrastructure;
     using AppliedSystems.Messaging.Infrastructure.Bootstrapping;
     using AppliedSystems.Messaging.Infrastructure.Events.Streams;
-    using AppliedSystems.Messaging.Infrastructure.Events.Streams.InProcess;
     using Messages;
     using SubscriberWithCustomEventIndexStorage.Sdks;
 
@@ -41,7 +38,7 @@
             MessageReceivingContext.MessageReceiver.StartReceiving(OnError);
             MessageReceivingContext.Events.Subscribe(PolicyEventStreamId.Parse("EventIndexStorageExample"));
 
-            Console.WriteLine("I Am SubscriberWithLocalEventIndexStorage");
+            Console.WriteLine("I Am SubscriberWithCustomEventIndexStorage");
             Console.ReadLine();
 
             MessageReceivingContext.MessageReceiver.StopReceiving();
