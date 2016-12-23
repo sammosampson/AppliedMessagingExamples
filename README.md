@@ -34,6 +34,6 @@ Download and repeat the same process as above for
 <b>http://uk-devbs01:8888/repository/downloadAll/ConnectivityShared_MessagingHttpReceiving/247686:id/artifacts.zip</b>
 
 ##Where to look first
-A good place to start would be the SimplePubSub example as it is as the name suggests  he simplest of configurations to follow
+A good place to start would be the SimplePubSub example as it is as the name suggests it is the most simple of all of the examples to follow.
 
 
