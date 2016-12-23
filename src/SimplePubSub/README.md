@@ -1,7 +1,9 @@
 
 #SimplePubSub
 
-This example contains a simple service that publishes an event to a stream to be stored in an event store and a service that subscribes to that stream and handles the event when it arrives
+This example contains a simple service that publishes an event to a stream to be stored in an event store and a service that subscribes to that stream and handles the event when it arrives. 
+
+A stream is a place in eventstore where a set of related events can written to, a stream has an id, for example 'policies-AB101' which may represent a set of events related to policy number AB101. As well as writing to a stream, you can also read all events in a stream, or subscribe to a stream so that you receive each event shortly after it is written. Each event in a stream has a contiguous position to allow you to read or subscribe to all events from that position. 
 
 To run the example ensure all the event store services described in the main readme are running and all config url's are set correctly. 
 
@@ -72,4 +74,13 @@ MessagingFramework.Bootstrap()
 ```
 
 Again we have to tell the framework about the endpoint, and then this time we are routing incoming events of type `PolicyBound` to the `PolicyBoundHandler` where it is processed.
+
+Now we won't actually receive anything until we start the message receiver and subscribe to the actual stream of events we want to listen to:
+
+```
+MessageReceivingContext.MessageReceiver.StartReceiving(OnError);
+MessageReceivingContext.Events.Subscribe(PolicyEventStreamId.Parse("SimplePubSubExample"));
+```
+
+
 
