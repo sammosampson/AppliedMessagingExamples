@@ -2,10 +2,12 @@
 {
     using System;
     using SystemDot.Bootstrapping;
+    using AppliedSystems.Core;
     using AppliedSystems.Messaging.EventStore.Http;
     using AppliedSystems.Messaging.EventStore.Http.Configuration;
     using AppliedSystems.Messaging.Infrastructure;
     using AppliedSystems.Messaging.Infrastructure.Bootstrapping;
+    using AppliedSystems.Messaging.Infrastructure.Headers;
     using Messages;
 
     class Program
