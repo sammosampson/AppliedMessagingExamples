@@ -5,8 +5,8 @@ namespace SimpleEventSourcing
     using SystemDot.Bootstrapping;
     using SystemDot.Ioc;
     using AppliedSystems.Core;
-    using AppliedSystems.Messaging.EventStore.GES;
-    using AppliedSystems.Messaging.EventStore.GES.Configuration;
+    using AppliedSystems.Messaging.EventStore.Http;
+    using AppliedSystems.Messaging.EventStore.Http.Configuration;
     using AppliedSystems.Messaging.Infrastructure;
     using AppliedSystems.Messaging.Infrastructure.Bootstrapping;
     using AppliedSystems.Messaging.Infrastructure.Events.Streams;
@@ -16,14 +16,10 @@ namespace SimpleEventSourcing
     {
         static void Main(string[] args)
         {
-            var eventStorageConfig = EventStoreMessageStorageConfiguration.FromAppConfig();
+            var eventStorageConfig = HttpEventStoreConfiguration.FromAppConfig();
 
-            var eventStoreEndpoint = EventStoreEndpoint
-               .OnUrl(EventStoreUrl.Parse(eventStorageConfig.Url))
-               .WithCredentials(
-                   EventStoreUserCredentials.Parse(
-                       eventStorageConfig.UserCredentials.User,
-                       eventStorageConfig.UserCredentials.Password))
+            var eventStoreEndpoint = HttpEventStoreEndpoint
+               .OnUrl(HttpEventStoreUrl.Parse(eventStorageConfig.Url))
                .WithEventTypeFromNameResolution(EventTypeFromNameResolver.FromTypesFromAssemblyContaining<DepositMoneyIntoAccount>());
 
             var container = new IocContainer(t => t.NameInCSharp());

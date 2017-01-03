@@ -8,9 +8,8 @@ namespace SimpleEventSourcing.Subscriber
     using AppliedSystems.Core;
     using AppliedSystems.Data.Bootstrapping;
     using AppliedSystems.Messaging.Data.Bootstrapping;
-    using AppliedSystems.Messaging.EventStore.GES;
-    using AppliedSystems.Messaging.EventStore.GES.Configuration;
-    using AppliedSystems.Messaging.EventStore.GES.Subscribing;
+    using AppliedSystems.Messaging.EventStore.Http.Subscribing;
+    using AppliedSystems.Messaging.EventStore.Http.Subscribing.Configuration;
     using AppliedSystems.Messaging.Infrastructure;
     using AppliedSystems.Messaging.Infrastructure.Bootstrapping;
     using AppliedSystems.Messaging.Infrastructure.Events.Streams;
@@ -22,13 +21,12 @@ namespace SimpleEventSourcing.Subscriber
     {
         static void Main(string[] args)
         {
-            var eventSubscriptionConfig = EventStoreSubscriptionConfiguration.FromAppConfig();
+            var eventSubscriptionConfig = HttpEventStoreSubscriberConfiguration.FromAppConfig();
 
-            var eventStoreSubscriptionEndpoint = EventStoreSubscriptionEndpoint
-                .ListenTo(EventStoreUrl.Parse(eventSubscriptionConfig.Url))
-                .WithCredentials(EventStoreUserCredentials.Parse(
-                    eventSubscriptionConfig.UserCredentials.User,
-                    eventSubscriptionConfig.UserCredentials.Password))
+            var eventStoreSubscriptionEndpoint = HttpEventStoreSubscriberReceivingEndpoint
+                .SubscribeToEventsFrom(HttpEventStoreSubscriptionServerUrl.Parse(eventSubscriptionConfig.Url))
+                .RestartConnectionWhenDownDelay(TimeSpan.FromSeconds(eventSubscriptionConfig.ConnectionDownRestartDelayInSeconds))
+                .RestartConnectionWhenErrorDelay(TimeSpan.FromSeconds(eventSubscriptionConfig.ErrorRestartDelayInSeconds))
                 .WithEventTypeFromNameResolution(EventTypeFromNameResolver.FromTypesFromAssemblyContaining<AccountCredited>())
                 .WithInMemoryEventIndexStorage();
 
