@@ -24,12 +24,12 @@
                 .RestartConnectionWhenDownDelay(TimeSpan.FromSeconds(eventStoreConfiguration.ConnectionDownRestartDelayInSeconds))
                 .RestartConnectionWhenErrorDelay(TimeSpan.FromSeconds(eventStoreConfiguration.ErrorRestartDelayInSeconds))
                 .WithEventTypeFromNameResolution(EventTypeFromNameResolver.FromTypesFromAssemblyContaining<PolicyBound>())
-                .WithServerEventIndexStorage();
+                .WithEventStoreEventIndexStorage();
 
             MessagingFramework.Bootstrap()
                 .SetupDataConnectivity().WithSqlConnection()
                 .SetupMessaging()
-                    .SetupHttpMessageReceiving()
+                    .SetupHttpEventStoreSubscribing()
                     .ConfigureReceivingEndpoint(eventStoreEndpoint)
                     .ConfigureMessageRouting()
                         .Incoming.ForEvents.Handle<PolicyBound>().With<PolicyBoundHandler>()

@@ -27,7 +27,7 @@
 
             MessagingFramework.Bootstrap()
                 .SetupMessaging()
-                    .SetupHttpMessageReceiving()
+                    .SetupHttpEventStoreSubscribing()
                     .ConfigureReceivingEndpoint(eventStoreEndpoint)
                     .ConfigureMessageRouting()
                         .Incoming.ForEvents.Handle<PolicyBound>().With(new PolicyBoundHandler())

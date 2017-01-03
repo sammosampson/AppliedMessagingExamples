@@ -57,12 +57,12 @@
       <HintPath>..\packages\AppliedSystems.Messaging.3.0.398\lib\net\AppliedSystems.Messaging.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AppliedSystems.Messaging.EventStore.Http.Subscribing, Version=1.0.265.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AppliedSystems.Messaging.EventStore.Http.Subscribing.1.0.265\lib\net\AppliedSystems.Messaging.EventStore.Http.Subscribing.dll</HintPath>
+    <Reference Include="AppliedSystems.Messaging.EventStore.Http.Subscribing, Version=1.0.269.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AppliedSystems.Messaging.EventStore.Http.Subscribing.1.0.269\lib\net\AppliedSystems.Messaging.EventStore.Http.Subscribing.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AppliedSystems.Messaging.EventStore.Http.Subscribing.SystemDot, Version=1.0.265.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AppliedSystems.Messaging.EventStore.Http.Subscribing.1.0.265\lib\net\AppliedSystems.Messaging.EventStore.Http.Subscribing.SystemDot.dll</HintPath>
+    <Reference Include="AppliedSystems.Messaging.EventStore.Http.Subscribing.SystemDot, Version=1.0.269.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AppliedSystems.Messaging.EventStore.Http.Subscribing.1.0.269\lib\net\AppliedSystems.Messaging.EventStore.Http.Subscribing.SystemDot.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="AppliedSystems.Messaging.Infrastructure, Version=3.0.398.0, Culture=neutral, processorArchitecture=MSIL">

@@ -29,7 +29,7 @@
             MessagingFramework.Bootstrap()
                 .SetupDataConnectivity().WithSqlConnection()
                 .SetupMessaging()
-                    .SetupHttpMessageReceiving()
+                    .SetupHttpEventStoreSubscribing()
                     .ConfigureReceivingEndpoint(eventStoreEndpoint)
                     .ConfigureMessageRouting()
                         .Incoming.ForEvents.Handle<PolicyBound>().With<PolicyBoundHandler>()

@@ -5,6 +5,7 @@
     using AppliedSystems.Core;
     using AppliedSystems.Messaging.EventStore.Http;
     using AppliedSystems.Messaging.EventStore.Http.Configuration;
+    using AppliedSystems.Messaging.EventStore.Http.SystemDot;
     using AppliedSystems.Messaging.Infrastructure;
     using AppliedSystems.Messaging.Infrastructure.Bootstrapping;
     using AppliedSystems.Messaging.Infrastructure.Headers;
@@ -21,6 +22,7 @@
 
             MessagingFramework.Bootstrap()
                 .SetupMessaging()
+                    .SetupHttpEventStore()
                     .ConfigureEventStoreEndpoint(eventStoreEndpoint)
                     .ConfigureMessageRouting()
                         .Outgoing.ForEvents
@@ -47,7 +49,7 @@
                     {
                         MessageSendingContext.Bus.Send(new PolicyBound("SimplePubSubExample", "<Risk><DriverName>Darth Vader</DriverName></Risk>"));
                     }
-                    catch (EventEndpointSendingException exception)
+                    catch (EventEndpointException exception)
                     {
                         Console.WriteLine(exception.Message);
                     }

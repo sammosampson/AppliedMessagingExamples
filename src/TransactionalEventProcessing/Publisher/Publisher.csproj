@@ -57,8 +57,12 @@
       <HintPath>..\packages\AppliedSystems.Messaging.3.0.398\lib\net\AppliedSystems.Messaging.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AppliedSystems.Messaging.EventStore.Http, Version=1.1.237.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AppliedSystems.Messaging.EventStore.Http.1.1.237\lib\net\AppliedSystems.Messaging.EventStore.Http.dll</HintPath>
+    <Reference Include="AppliedSystems.Messaging.EventStore.Http, Version=1.1.243.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AppliedSystems.Messaging.EventStore.Http.1.1.243\lib\net\AppliedSystems.Messaging.EventStore.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AppliedSystems.Messaging.EventStore.Http.SystemDot, Version=1.1.243.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AppliedSystems.Messaging.EventStore.Http.1.1.243\lib\net\AppliedSystems.Messaging.EventStore.Http.SystemDot.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="AppliedSystems.Messaging.Infrastructure, Version=3.0.398.0, Culture=neutral, processorArchitecture=MSIL">
