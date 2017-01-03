@@ -33,7 +33,8 @@ Download and repeat the same process as above for
 
 <b>http://uk-devbs01:8888/repository/downloadAll/ConnectivityShared_MessagingHttpReceiving/248607:id/artifacts.zip</b>
 
-##Where to look first
-A good place to start would be the SimplePubSub example as it is as the name suggests it is the most simple of all of the examples to follow, and the documentation should explain the key concepts.
-
+##Examples
+Going from the simplest example, and then building on that knowledge with increasing complexity we suggest going through the examples in the following order:
+(https://github.com/sammosampson/AppliedMessagingExamples/tree/master/src/SimplePubSub "SimplePubSub")
+(https://github.com/sammosampson/AppliedMessagingExamples/tree/master/src/TransactionalEventProcessing "TransactionalEventProcessing")
 
