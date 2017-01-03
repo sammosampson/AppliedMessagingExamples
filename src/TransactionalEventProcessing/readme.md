@@ -1,5 +1,13 @@
 #TransactionalEventProcessing
 
+##Setting up
+- Create a local sql database called ```AppliedMessagingExamples.SubscriberWithServerEventIndexStorage```
+and run the sql in the solution items ```SubscriberWithServerEventIndexStorage``` against it. 
+- Create another local sql database called ```AppliedMessagingExamples.SubscriberWithLocalEventIndexStorage```
+and run the sql in the solution items ```SubscriberWithLocalEventIndexStorage``` against it. 
+
+##Summary
+
 Events from event store streams are allocated a position within that stream as they are appended to it.
 
 When a service using the messaging framework subscribes to a stream using ```MessageReceivingContext.Events.Subscribe("XXX"))``` the framework subscribes to the stream and tells it to get all events from a position that it determines was the last event processed's position + 1.
