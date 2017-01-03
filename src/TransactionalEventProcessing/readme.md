@@ -11,8 +11,7 @@ There are currently three flavours of event position storage and thus three flav
 ## Local SQL database event position storage
 This is where we store the position of the index in a database table in the same database as where we are putting the result of processing the events into, both operations occur within the same sql transaction so they occur atomically together. This ensures that the processing of the event in this case can only happen once, unless the event position data is deleted.
 
-If we take a look at the example code in the SubscriberWithLocalEventIndexStorage project we can see that the subscriber endpoint is set up
-using ```WithSqlDatabaseEventIndexStorage``` which invokes this option:
+If we take a look at the example code in the SubscriberWithLocalEventIndexStorage project we can see that the subscriber endpoint is set up using ```WithSqlDatabaseEventIndexStorage``` which invokes this option:
 
 ```
  HttpEventStoreSubscriberReceivingEndpoint eventStoreEndpoint = HttpEventStoreSubscriberReceivingEndpoint
@@ -28,8 +27,7 @@ If we look in the ```PolicyBoundHandler``` class we can see that the risk from t
 ## Server side event position storage (aka event store event position storage)
 This is where we after the successful processing of an event we store the position of the processed stream event in a special eventstore stream for itself. There is no sql transaction started in this case, and so if we are processing the event data into a local sql database it is possible that a crash could occur before storage of the position and therefore when we restart and subscribe again we could replay the same event. This is known as 'at least once processing', and the processing of the event must be idempotent in order for this to be of use.
 
-If we take a look at the example code in the SubscriberWithServerEventIndexStorage project we can see that the subscriber endpoint is set up
-using ```WithEventStoreEventIndexStorage``` which invokes this option:
+If we take a look at the example code in the SubscriberWithServerEventIndexStorage project we can see that the subscriber endpoint is set up using ```WithEventStoreEventIndexStorage``` which invokes this option:
 
 ```
  HttpEventStoreSubscriberReceivingEndpoint eventStoreEndpoint = HttpEventStoreSubscriberReceivingEndpoint
@@ -40,3 +38,24 @@ using ```WithEventStoreEventIndexStorage``` which invokes this option:
   .WithEventStoreEventIndexStorage();
 ```
 If we look in the ```PolicyBoundHandler``` class we can see that the risk from the event is being passed through a stored procedure to 'upsert' the data into the database. Upserting is an idempotent operation where we check for prior existence of the data before inserting it.
+
+##Custom event position storage
+Finally we can provide our own method for storing and retrieving processed event positions. This is desirable where we are processing an event using a third party library rather than accessing the database directly.
+
+If we take a look at the example code in the SubscriberWithCustomEventIndexStorage project we can see that the subscriber endpoint is set up using ```WithMyThirdPartySdkEventIndexStorage``` which is a extension method in that project:
+
+```
+public static class IReceivingEndpointExtensions
+{
+    public static TReceivingEndpoint WithMyThirdPartySdkEventIndexStorage<TReceivingEndpoint>(this TReceivingEndpoint endpoint) where TReceivingEndpoint : IReceivingEndpoint
+    {
+        endpoint.EventIndexStoreType = typeof(MyThirdPartySdkEventIndexStore);
+        endpoint.TransactionProviderType = typeof(MyThirdPartySdkTransactionProvider);
+        return endpoint;
+    }
+}
+```
+
+from that code we can see that all we need to do is provide the type of our custom ```IEventIndexStore```  and ```ITransactionProvider``` implementations, those being ```MyThirdPartySdkEventIndexStore```,  and ```MyThirdPartySdkTransactionProvider``` each respectively stores the event positions and executes a transaction via our third party sdk. 
+
+
