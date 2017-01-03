@@ -1,4 +1,7 @@
-﻿CREATE TABLE [dbo].[Risk](
+﻿USE [AppliedMessagingExamples.SubscriberWithServerEventIndexStorage]
+GO
+
+CREATE TABLE [dbo].[Risk](
 	[PolicyNumber] [VARCHAR](50) NOT NULL,
 	[TenantId] [NVARCHAR](100) NOT NULL,
 	[Risk] [NVARCHAR](1000) NOT NULL,

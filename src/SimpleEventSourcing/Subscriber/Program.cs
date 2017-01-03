@@ -2,12 +2,7 @@
 namespace SimpleEventSourcing.Subscriber
 {
     using System;
-    using System.Diagnostics;
     using SystemDot.Bootstrapping;
-    using SystemDot.Ioc;
-    using AppliedSystems.Core;
-    using AppliedSystems.Data.Bootstrapping;
-    using AppliedSystems.Messaging.Data.Bootstrapping;
     using AppliedSystems.Messaging.EventStore.Http.Subscribing;
     using AppliedSystems.Messaging.EventStore.Http.Subscribing.Configuration;
     using AppliedSystems.Messaging.EventStore.Http.Subscribing.SystemDot.Bootstrapping;
@@ -15,7 +10,6 @@ namespace SimpleEventSourcing.Subscriber
     using AppliedSystems.Messaging.Infrastructure.Bootstrapping;
     using AppliedSystems.Messaging.Infrastructure.Events.Streams;
     using AppliedSystems.Messaging.Infrastructure.Receiving;
-    using AppliedSystems.Messaging.Infrastructure.Receiving.InProcess;
     using SimpleEventSourcing.Messages;
 
     class Program
@@ -31,19 +25,15 @@ namespace SimpleEventSourcing.Subscriber
                 .WithEventTypeFromNameResolution(EventTypeFromNameResolver.FromTypesFromAssemblyContaining<AccountCredited>())
                 .WithInMemoryEventIndexStorage();
 
-            var container = new IocContainer(t => t.NameInCSharp());
-
-            Bootstrap.Application()
-                .ResolveReferencesWith(container)
-                .SetupMessaging()
-                    .SetupHttpEventStoreSubscribing()
-                    .ConfigureReceivingEndpoint(eventStoreSubscriptionEndpoint)
-                    .ConfigureMessageRouting()
-                        .Incoming.ForEvents
-                            .Handle<AccountCredited>().With<AccountCreditedHandler>()
-                            .Handle<AccountDebited>().With<AccountDebitedHandler>()
-                            .Handle<AccountOverdraftLimitReached>().With<AccountOverdraftLimitReachedHandler>()
-                            .Handle<AccountBalanceLimitReached>().With<AccountBalanceLimitReachedHandler>()
+            MessagingFramework.Bootstrap()
+                .SetupHttpEventStoreSubscribing()
+                .ConfigureReceivingEndpoint(eventStoreSubscriptionEndpoint)
+                .ConfigureMessageRouting()
+                    .Incoming.ForEvents
+                        .Handle<AccountCredited>().With<AccountCreditedHandler>()
+                        .Handle<AccountDebited>().With<AccountDebitedHandler>()
+                        .Handle<AccountOverdraftLimitReached>().With<AccountOverdraftLimitReachedHandler>()
+                        .Handle<AccountBalanceLimitReached>().With<AccountBalanceLimitReachedHandler>()
                 .Initialise();
 
             MessageReceivingContext.MessageReceiver.StartReceiving((ex, message) => Console.WriteLine(ex.Message));

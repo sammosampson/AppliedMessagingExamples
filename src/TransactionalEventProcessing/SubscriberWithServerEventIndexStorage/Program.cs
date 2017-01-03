@@ -41,8 +41,7 @@
                     .SetupHttpEventStoreSubscribing()
                     .ConfigureEventStoreEndpoint(eventStoreEndpoint)
                     .ConfigureReceivingEndpoint(eventStoreSubscriptionEndpoint)
-                    .ConfigureMessageRouting()
-                        .Incoming.ForEvents.Handle<PolicyBound>().With<PolicyBoundHandler>()
+                    .ConfigureMessageRouting().Incoming.ForEvents.Handle<PolicyBound>().With<PolicyBoundHandler>()
                 .Initialise();
 
             MessageReceivingContext.MessageReceiver.StartReceiving(OnError);

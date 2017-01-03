@@ -26,11 +26,9 @@
                 .WithInMemoryEventIndexStorage();
 
             MessagingFramework.Bootstrap()
-                .SetupMessaging()
-                    .SetupHttpEventStoreSubscribing()
-                    .ConfigureReceivingEndpoint(eventStoreEndpoint)
-                    .ConfigureMessageRouting()
-                        .Incoming.ForEvents.Handle<PolicyBound>().With(new PolicyBoundHandler())
+                .SetupHttpEventStoreSubscribing()
+                .ConfigureReceivingEndpoint(eventStoreEndpoint)
+                .ConfigureMessageRouting().Incoming.ForEvents.Handle<PolicyBound>().With(new PolicyBoundHandler())
                 .Initialise();
 
             MessageReceivingContext.MessageReceiver.StartReceiving(OnError);

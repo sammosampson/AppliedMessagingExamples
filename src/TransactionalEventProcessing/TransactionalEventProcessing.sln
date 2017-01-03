@@ -12,6 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CB4E4116-260B-49CF-B337-6DD06CEDB7AF}"
 	ProjectSection(SolutionItems) = preProject
 		SubscriberWithLocalEventIndexStorage.sql = SubscriberWithLocalEventIndexStorage.sql
+		SubscriberWithServerEventIndexStorage.sql = SubscriberWithServerEventIndexStorage.sql
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubscriberWithCustomEventIndexStorage", "SubscriberWithCustomEventIndexStorage\SubscriberWithCustomEventIndexStorage.csproj", "{21E5B97A-5C46-4417-B05D-C5FF770F46DA}"

@@ -3,8 +3,6 @@ namespace SimpleEventSourcing
 {
     using System;
     using SystemDot.Bootstrapping;
-    using SystemDot.Ioc;
-    using AppliedSystems.Core;
     using AppliedSystems.Messaging.EventStore.Http;
     using AppliedSystems.Messaging.EventStore.Http.Configuration;
     using AppliedSystems.Messaging.EventStore.Http.SystemDot;
@@ -23,17 +21,13 @@ namespace SimpleEventSourcing
                .OnUrl(HttpEventStoreUrl.Parse(eventStorageConfig.Url))
                .WithEventTypeFromNameResolution(EventTypeFromNameResolver.FromTypesFromAssemblyContaining<DepositMoneyIntoAccount>());
 
-            var container = new IocContainer(t => t.NameInCSharp());
-
-            Bootstrap.Application()
-                .ResolveReferencesWith(container)
-                .SetupMessaging()
-                    .SetupHttpEventStore()
-                    .ConfigureEventStoreEndpoint(eventStoreEndpoint)
-                    .ConfigureMessageRouting()
-                        .Internal.ForCommands
-                        .Handle<DepositMoneyIntoAccount>().With<DepositMoneyIntoAccountHandler>()
-                        .Handle<WithdrawMoneyFromAccount>().With<WithdrawMoneyFromAccountHandler>()
+            MessagingFramework.Bootstrap()
+                .SetupHttpEventStore()
+                .ConfigureEventStoreEndpoint(eventStoreEndpoint)
+                .ConfigureMessageRouting()
+                    .Internal.ForCommands
+                    .Handle<DepositMoneyIntoAccount>().With<DepositMoneyIntoAccountHandler>()
+                    .Handle<WithdrawMoneyFromAccount>().With<WithdrawMoneyFromAccountHandler>()
                 .Initialise();
 
             while (true)

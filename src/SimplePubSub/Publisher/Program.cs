@@ -21,14 +21,13 @@
                 HttpEventStoreUrl.Parse(eventStoreConfiguration.Url));
 
             MessagingFramework.Bootstrap()
-                .SetupMessaging()
-                    .SetupHttpEventStore()
-                    .ConfigureEventStoreEndpoint(eventStoreEndpoint)
-                    .ConfigureMessageRouting()
-                        .Outgoing.ForEvents
-                            .Send<PolicyBound>()
-                                .ViaEndpoint(eventStoreEndpoint)
-                                .ToEventStream(@event => PolicyEventStreamId.Parse(@event.TenantId))
+                .SetupHttpEventStore()
+                .ConfigureEventStoreEndpoint(eventStoreEndpoint)
+                .ConfigureMessageRouting()
+                    .Outgoing.ForEvents
+                        .Send<PolicyBound>()
+                            .ViaEndpoint(eventStoreEndpoint)
+                            .ToEventStream(@event => PolicyEventStreamId.Parse(@event.TenantId))
                 .Initialise();
 
             Console.WriteLine("I Am Publisher");
