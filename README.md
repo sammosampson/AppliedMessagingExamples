@@ -35,6 +35,6 @@ Download and repeat the same process as above for
 
 ##Examples
 Going from the simplest example, and then building on that knowledge with increasing complexity we suggest going through the examples in the following order:
-(https://github.com/sammosampson/AppliedMessagingExamples/tree/master/src/SimplePubSub "SimplePubSub")
-(https://github.com/sammosampson/AppliedMessagingExamples/tree/master/src/TransactionalEventProcessing "TransactionalEventProcessing")
+[SimplePubSub](https://github.com/sammosampson/AppliedMessagingExamples/tree/master/src/SimplePubSub)
+[TransactionalEventProcessing](https://github.com/sammosampson/AppliedMessagingExamples/tree/master/src/TransactionalEventProcessing)
 
