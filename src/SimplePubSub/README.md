@@ -20,6 +20,7 @@ The next block basically wires everything together and specifies how to rute the
 ```
 MessagingFramework.Bootstrap()
   .SetupMessaging()
+      .SetupHttpEventStore()
       .ConfigureEventStoreEndpoint(eventStoreEndpoint)
       .ConfigureMessageRouting()
           .Outgoing.ForEvents
@@ -66,7 +67,7 @@ Line by line we:
 ```
 MessagingFramework.Bootstrap()
   .SetupMessaging()
-      .SetupHttpMessageReceiving()
+      .SetupHttpEventStoreSubscribing()
       .ConfigureReceivingEndpoint(eventStoreEndpoint)
       .ConfigureMessageRouting()
           .Incoming.ForEvents.Handle<PolicyBound>().With(new PolicyBoundHandler())
