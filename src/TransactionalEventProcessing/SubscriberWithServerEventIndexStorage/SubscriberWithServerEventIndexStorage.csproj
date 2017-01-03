@@ -53,20 +53,28 @@
       <HintPath>..\packages\AppliedSystems.Data.2.1.177\lib\net\AppliedSystems.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AppliedSystems.Messaging.Data, Version=3.0.398.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AppliedSystems.Messaging.3.0.398\lib\net\AppliedSystems.Messaging.Data.dll</HintPath>
+    <Reference Include="AppliedSystems.Messaging.Data, Version=3.0.399.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AppliedSystems.Messaging.3.0.399\lib\net\AppliedSystems.Messaging.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AppliedSystems.Messaging.EventStore.Http.Subscribing, Version=1.0.269.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AppliedSystems.Messaging.EventStore.Http.Subscribing.1.0.269\lib\net\AppliedSystems.Messaging.EventStore.Http.Subscribing.dll</HintPath>
+    <Reference Include="AppliedSystems.Messaging.EventStore.Http, Version=1.1.245.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AppliedSystems.Messaging.EventStore.Http.1.1.245\lib\net\AppliedSystems.Messaging.EventStore.Http.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AppliedSystems.Messaging.EventStore.Http.Subscribing.SystemDot, Version=1.0.269.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AppliedSystems.Messaging.EventStore.Http.Subscribing.1.0.269\lib\net\AppliedSystems.Messaging.EventStore.Http.Subscribing.SystemDot.dll</HintPath>
+    <Reference Include="AppliedSystems.Messaging.EventStore.Http.Subscribing, Version=1.0.272.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AppliedSystems.Messaging.EventStore.Http.Subscribing.1.0.272\lib\net\AppliedSystems.Messaging.EventStore.Http.Subscribing.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AppliedSystems.Messaging.Infrastructure, Version=3.0.398.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AppliedSystems.Messaging.3.0.398\lib\net\AppliedSystems.Messaging.Infrastructure.dll</HintPath>
+    <Reference Include="AppliedSystems.Messaging.EventStore.Http.Subscribing.SystemDot, Version=1.0.272.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AppliedSystems.Messaging.EventStore.Http.Subscribing.1.0.272\lib\net\AppliedSystems.Messaging.EventStore.Http.Subscribing.SystemDot.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AppliedSystems.Messaging.EventStore.Http.SystemDot, Version=1.1.245.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AppliedSystems.Messaging.EventStore.Http.1.1.245\lib\net\AppliedSystems.Messaging.EventStore.Http.SystemDot.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AppliedSystems.Messaging.Infrastructure, Version=3.0.399.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\AppliedSystems.Messaging.3.0.399\lib\net\AppliedSystems.Messaging.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="AppliedSystems.Messaging.Messages, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">

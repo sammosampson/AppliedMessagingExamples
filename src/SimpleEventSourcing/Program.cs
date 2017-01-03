@@ -7,6 +7,7 @@ namespace SimpleEventSourcing
     using AppliedSystems.Core;
     using AppliedSystems.Messaging.EventStore.Http;
     using AppliedSystems.Messaging.EventStore.Http.Configuration;
+    using AppliedSystems.Messaging.EventStore.Http.SystemDot;
     using AppliedSystems.Messaging.Infrastructure;
     using AppliedSystems.Messaging.Infrastructure.Bootstrapping;
     using AppliedSystems.Messaging.Infrastructure.Events.Streams;
@@ -27,6 +28,7 @@ namespace SimpleEventSourcing
             Bootstrap.Application()
                 .ResolveReferencesWith(container)
                 .SetupMessaging()
+                    .SetupHttpEventStore()
                     .ConfigureEventStoreEndpoint(eventStoreEndpoint)
                     .ConfigureMessageRouting()
                         .Internal.ForCommands

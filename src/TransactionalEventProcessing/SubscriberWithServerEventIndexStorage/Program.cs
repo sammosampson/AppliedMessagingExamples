@@ -4,9 +4,12 @@
     using SystemDot.Bootstrapping;
     using AppliedSystems.Core;
     using AppliedSystems.Data.Bootstrapping;
+    using AppliedSystems.Messaging.EventStore.Http;
+    using AppliedSystems.Messaging.EventStore.Http.Configuration;
     using AppliedSystems.Messaging.EventStore.Http.Subscribing;
     using AppliedSystems.Messaging.EventStore.Http.Subscribing.Configuration;
     using AppliedSystems.Messaging.EventStore.Http.Subscribing.SystemDot.Bootstrapping;
+    using AppliedSystems.Messaging.EventStore.Http.SystemDot;
     using AppliedSystems.Messaging.Infrastructure;
     using AppliedSystems.Messaging.Infrastructure.Bootstrapping;
     using AppliedSystems.Messaging.Infrastructure.Events.Streams;
@@ -17,20 +20,27 @@
     {
         static void Main(string[] args)
         {
-            var eventStoreConfiguration = HttpEventStoreSubscriberConfiguration.FromAppConfig();
+            var eventStoreConfiguration = HttpEventStoreConfiguration.FromAppConfig();
+            var eventStoreSubscriptionConfiguration = HttpEventStoreSubscriberConfiguration.FromAppConfig();
 
-            HttpEventStoreSubscriberReceivingEndpoint eventStoreEndpoint = HttpEventStoreSubscriberReceivingEndpoint
-                .SubscribeToEventsFrom(HttpEventStoreSubscriptionServerUrl.Parse(eventStoreConfiguration.Url))
-                .RestartConnectionWhenDownDelay(TimeSpan.FromSeconds(eventStoreConfiguration.ConnectionDownRestartDelayInSeconds))
-                .RestartConnectionWhenErrorDelay(TimeSpan.FromSeconds(eventStoreConfiguration.ErrorRestartDelayInSeconds))
+            HttpEventStoreEndpoint eventStoreEndpoint = HttpEventStoreEndpoint
+                .OnUrl(HttpEventStoreUrl.Parse(eventStoreConfiguration.Url))
+                .WithEventTypeFromNameResolution(EventTypeFromNameResolver.FromTypesFromAssemblyContaining<PolicyBound>());
+
+            HttpEventStoreSubscriberReceivingEndpoint eventStoreSubscriptionEndpoint = HttpEventStoreSubscriberReceivingEndpoint
+                .SubscribeToEventsFrom(HttpEventStoreSubscriptionServerUrl.Parse(eventStoreSubscriptionConfiguration.Url))
+                .RestartConnectionWhenDownDelay(TimeSpan.FromSeconds(eventStoreSubscriptionConfiguration.ConnectionDownRestartDelayInSeconds))
+                .RestartConnectionWhenErrorDelay(TimeSpan.FromSeconds(eventStoreSubscriptionConfiguration.ErrorRestartDelayInSeconds))
                 .WithEventTypeFromNameResolution(EventTypeFromNameResolver.FromTypesFromAssemblyContaining<PolicyBound>())
                 .WithEventStoreEventIndexStorage();
 
             MessagingFramework.Bootstrap()
                 .SetupDataConnectivity().WithSqlConnection()
                 .SetupMessaging()
+                    .SetupHttpEventStore()
                     .SetupHttpEventStoreSubscribing()
-                    .ConfigureReceivingEndpoint(eventStoreEndpoint)
+                    .ConfigureEventStoreEndpoint(eventStoreEndpoint)
+                    .ConfigureReceivingEndpoint(eventStoreSubscriptionEndpoint)
                     .ConfigureMessageRouting()
                         .Incoming.ForEvents.Handle<PolicyBound>().With<PolicyBoundHandler>()
                 .Initialise();
