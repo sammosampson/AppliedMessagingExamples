@@ -1,6 +1,6 @@
 #TransactionalEventProcessing
 
-Events from event store streams are allocated a position within that stream as they are appended to the stream. 
+Events from event store streams are allocated a position within that stream as they are appended to it.
 
 When a service using the messaging framework subscribes to a stream using ```MessageReceivingContext.Events.Subscribe("XXX"))``` the framework subscribes to the stream and tells it to get all events from a position that it determines was the last event processed's position + 1.
 
