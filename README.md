@@ -37,5 +37,6 @@ Download and repeat the same process as above for
 Going from the simplest example, and then building on that knowledge with increasing complexity we suggest going through the examples in the following order:
 - [SimplePubSub](https://github.com/sammosampson/AppliedMessagingExamples/tree/master/src/SimplePubSub)
 - [TransactionalEventProcessing](https://github.com/sammosampson/AppliedMessagingExamples/tree/master/src/TransactionalEventProcessing)
+- [MessageHeaders](https://github.com/sammosampson/AppliedMessagingExamples/tree/master/src/MessageHeaders)
 - ...More to follow
 
