@@ -71,4 +71,4 @@ public class MessageHeadersToClaimsPipe : IMessagePipe
 }
 ```
 
-
+You can see how the headers are stored as metadata in eventstore by looking at the events in the stream fro this example in the eventstore portal, locally at: http://127.0.0.1:2113/web/index.html#/streams
