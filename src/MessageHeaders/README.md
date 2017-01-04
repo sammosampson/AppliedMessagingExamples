@@ -9,7 +9,6 @@ The messaging framework provides access to this meta data storage and retrieval 
 The code example here takes some current principal claims that are set up on initialisation of the publisher, and serialises them to message headers as each event is sent. The reverse of this happens when the event is received at the subscriber, converting the headers back into claims.
 
 If we take a look at the ```Program``` class in the ```Publisher``` project in the example code we can see that we initially setup some claims on the current security principal for the current environment and account repository:
-(NOTE: we are using the AppliedSystems.Security nuget package for the Claims helper extensions you can see here, but there is no reason why this has to be used over the BCL, it just makes for more condensed code for example purposes)
 
 ```
 private static void SetupCurrentPrincipalClaims()
@@ -20,6 +19,8 @@ private static void SetupCurrentPrincipalClaims()
     Thread.CurrentPrincipal = new ClaimsPrincipal(claimsIdentity);
 }
 ```
+
+(NOTE: we are using the AppliedSystems.Security nuget package for the Claims helper extensions you can see here, but there is no reason why this has to be used over the BCL, it just makes for more condensed code for example purposes)
 
 Now if we look back at the message framework bootstrapping there is a line that registers a ```ClaimsToMessageHeadersPipe```  in the outgoing message pipeline:
 
