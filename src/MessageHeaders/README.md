@@ -5,6 +5,8 @@ Event store has the ability to store metadata along with the event data in a str
 
 The messaging framework provides access to this meta data storage and retrieval via headers on each message envelope, which is how messages pass through the framework. Message headers can be read and set using a Message Processing Pipe, which is something you slot into the overall message pipeline.
 
+The code example here takes some current principal claims that are set up on initialisation of the publisher, and serialises them to message headers as each event is sent. The reverse of this happens when the event is received at the subscriber, converting the headers back into claims.
+
 If we take a look at the ```Program``` class in the ```Publisher``` project in the example code we can see that we initially setup some claims on the current security principal for the current environment and account repository:
 
 ```
