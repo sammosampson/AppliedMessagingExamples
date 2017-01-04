@@ -14,7 +14,7 @@ When a service using the messaging framework subscribes to a stream using ```Mes
 
 The processing of an event at a subscriber and the subsequent storage of the position of that event, so that it may be used when we subscribe again (perhaps due to a service crash and restart), is what is meant by transactional event processing.
 
-There are currently three flavours of event position storage and thus three flavours of what is loosely termed transactional event processing:
+There are currently three flavours of event position storage and thus three flavours of what is loosely termed transactional event processing, you can even create custom ways of doing it: 
 
 ## Local SQL database event position storage
 This is where we store the position of the index in a database table in the same database as where we are putting the result of processing the events into, both operations occur within the same sql transaction so they occur atomically together. This ensures that the processing of the event in this case can only happen once, unless the event position data is deleted.
@@ -46,6 +46,11 @@ If we take a look at the example code in the SubscriberWithServerEventIndexStora
   .WithEventStoreEventIndexStorage();
 ```
 If we look in the ```PolicyBoundHandler``` class we can see that the risk from the event is being passed through a stored procedure to 'upsert' the data into the database. Upserting is an idempotent operation where we check for prior existence of the data before inserting it.
+
+## In memory event position storage
+This is where the event storage is held in memory and thus as its not persisted when the service restarts and resubscribes it always starts from position zero in the stream. If you are processing events into in memory storage this is quite useful - For example there maybe streams with few events in and it is more effecient to just to denomalise their data into in memory structures on startup, rather than going to the trouble of persisting. 
+
+There is no example for this but the endpoint extension for it is ```WithInMemoryStoreEventIndexStorage```.
 
 ##Custom event position storage
 Finally we can provide our own method for storing and retrieving processed event positions. This is desirable where we are processing an event using a third party library rather than accessing the database directly.
