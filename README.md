@@ -33,6 +33,9 @@ Download and repeat the same process as above for
 
 <b>http://uk-devbs01:8888/repository/downloadAll/ConnectivityShared_MessagingHttpReceiving/248646:id/artifacts.zip</b>
 
+##Eventstore portal:
+This is where eventstore can be configured and you can  browse stream content. It can be found locally at: http://127.0.0.1:2113/web/index.html#
+
 ##Examples
 Going from the simplest example, and then building on that knowledge with increasing complexity we suggest going through the examples in the following order:
 - [SimplePubSub](https://github.com/sammosampson/AppliedMessagingExamples/tree/master/src/SimplePubSub)
