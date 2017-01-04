@@ -1,9 +1,9 @@
 
 #MessageHeaders
 
-Event store has the ability to store metadata along with the event data in a stream. This is useful for information that you want to always pass around with every message but don't necessarily want it in the body of the actual event cluttering its intent. For example you might want to pass around the current environment, "dev" or "production".
+Event store has the ability to store metadata along with the event data in a stream. This is useful for information that you want to always pass around with every message but don't necessarily want it in the body of the actual event, cluttering its intent. For example you might want to pass around the current environment, "dev" or "production".
 
-The messaging framework provides access to this meta data storage and retrieval via message headers, which themseleves can be read and set using a message processing pipe, which is something you slot into the overall message delivery, or message receiving pipeline.
+The messaging framework provides access to this meta data storage and retrieval via headers on each message envelope, which is how messages pass through the framework. Message headers can be read and set using a Message Processing Pipe, which is something you slot into the overall message pipeline.
 
 If we take a look at the ```Program``` class in the ```Publisher``` project in the example code we can see that we initially setup some claims on the current security principal for the current environment and account repository:
 
