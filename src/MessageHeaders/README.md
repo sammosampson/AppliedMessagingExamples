@@ -45,4 +45,30 @@ As can be seen, the event itself is contained in the ```Payload``` property of t
 
 Admittedly the ```Message``` class is rather poorly named and would be better represented by something like ```MessageEnvelope``` to avoid confusion!
 
-In the ```Subscriber``` project, the same exists but in reverse in order to deserialise message headers back into claims. First we register the ``` ``` pipe this time on the incoming pipeline using:
+In the ```Subscriber``` project, the same exists but in reverse in order to deserialise message headers back into claims. First we register the ```MessageHeadersToClaimsPipe``` pipe this time on the incoming pipeline using:
+
+```
+...
+.RegisterOutgoingPipelineComponent(new ClaimsToMessageHeadersPipe())
+...
+```
+
+And here is the code for the pipe:
+
+```
+public class MessageHeadersToClaimsPipe : IMessagePipe
+{
+    public NotRequired<Message> ProcessMessage(Message message)
+    {
+        Console.WriteLine($"Getting claims from message headers for message : {message.Payload.GetType().Name}");
+
+        var claimsIdentity = new ClaimsIdentity();
+        claimsIdentity.AddClaim(new EnvironmentClaimType(), message.GetHeader(new EnvironmentMessageHeaderKey()));
+        claimsIdentity.AddClaim(new AccountRepositoryIdClaimType(), message.GetHeader(new AccountRepositoryIdMessageHeaderKey()));
+        Thread.CurrentPrincipal = new ClaimsPrincipal(claimsIdentity);
+        return message;
+    }
+}
+```
+
+
