@@ -41,6 +41,6 @@ Going from the simplest example, and then building on that knowledge with increa
 - [SimplePubSub](https://github.com/sammosampson/AppliedMessagingExamples/tree/master/src/SimplePubSub)
 - [TransactionalEventProcessing](https://github.com/sammosampson/AppliedMessagingExamples/tree/master/src/TransactionalEventProcessing)
 - [MessageHeaders](https://github.com/sammosampson/AppliedMessagingExamples/tree/master/src/MessageHeaders)
-- [COmmands](https://github.com/sammosampson/AppliedMessagingExamples/tree/master/src/Commands)
+- [Commands](https://github.com/sammosampson/AppliedMessagingExamples/tree/master/src/Commands)
 - ...More to follow
 
