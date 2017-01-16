@@ -3,31 +3,28 @@
     using System;
     using SystemDot.Bootstrapping;
     using AppliedSystems.Core;
-    using AppliedSystems.Data.Bootstrapping;
-    using AppliedSystems.Messaging.EventStore.Http.Subscribing;
-    using AppliedSystems.Messaging.EventStore.Http.Subscribing.Configuration;
-    using AppliedSystems.Messaging.EventStore.Http.Subscribing.SystemDot.Bootstrapping;
+    using AppliedSystems.Messaging.EventStore.GES;
+    using AppliedSystems.Messaging.EventStore.GES.Configuration;
+    using AppliedSystems.Messaging.EventStore.GES.Subscribing;
     using AppliedSystems.Messaging.Infrastructure;
     using AppliedSystems.Messaging.Infrastructure.Bootstrapping;
     using AppliedSystems.Messaging.Infrastructure.Events.Streams;
     using Messages;
-    using SubscriberWithCustomEventIndexStorage.Sdks;
+    using Sdks;
 
     class Program
     {
         static void Main(string[] args)
         {
-            var eventStoreConfiguration = HttpEventStoreSubscriberConfiguration.FromAppConfig();
+            var eventStoreConfiguration = EventStoreSubscriptionConfiguration.FromAppConfig();
 
-            HttpEventStoreSubscriberReceivingEndpoint eventStoreEndpoint = HttpEventStoreSubscriberReceivingEndpoint
-                .SubscribeToEventsFrom(HttpEventStoreSubscriptionServerUrl.Parse(eventStoreConfiguration.Url))
-                .RestartConnectionWhenDownDelay(TimeSpan.FromSeconds(eventStoreConfiguration.ConnectionDownRestartDelayInSeconds))
-                .RestartConnectionWhenErrorDelay(TimeSpan.FromSeconds(eventStoreConfiguration.ErrorRestartDelayInSeconds))
-                .WithEventTypeFromNameResolution(EventTypeFromNameResolver.FromTypesFromAssemblyContaining<PolicyBound>())
-                .WithMyThirdPartySdkEventIndexStorage();
+            EventStoreSubscriptionEndpoint eventStoreEndpoint = EventStoreSubscriptionEndpoint
+                 .ListenTo(EventStoreUrl.Parse(eventStoreConfiguration.Url))
+                 .WithCredentials(EventStoreUserCredentials.Parse(eventStoreConfiguration.UserCredentials.User, eventStoreConfiguration.UserCredentials.Password))
+                 .WithEventTypeFromNameResolution(EventTypeFromNameResolver.FromTypesFromAssemblyContaining<PolicyBound>())
+                 .WithMyThirdPartySdkEventIndexStorage();
 
             MessagingFramework.Bootstrap()
-                    .SetupHttpEventStoreSubscribing()
                     .ConfigureReceivingEndpoint(eventStoreEndpoint)
                     .ConfigureMessageRouting().Incoming.ForEvents.Handle<PolicyBound>().With<PolicyBoundHandler>()
                 .Initialise();

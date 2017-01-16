@@ -3,31 +3,29 @@ namespace SimpleEventSourcing.Subscriber
 {
     using System;
     using SystemDot.Bootstrapping;
-    using AppliedSystems.Messaging.EventStore.Http.Subscribing;
-    using AppliedSystems.Messaging.EventStore.Http.Subscribing.Configuration;
-    using AppliedSystems.Messaging.EventStore.Http.Subscribing.SystemDot.Bootstrapping;
+    using AppliedSystems.Messaging.EventStore.GES;
+    using AppliedSystems.Messaging.EventStore.GES.Configuration;
+    using AppliedSystems.Messaging.EventStore.GES.Subscribing;
     using AppliedSystems.Messaging.Infrastructure;
     using AppliedSystems.Messaging.Infrastructure.Bootstrapping;
     using AppliedSystems.Messaging.Infrastructure.Events.Streams;
     using AppliedSystems.Messaging.Infrastructure.Receiving;
-    using SimpleEventSourcing.Messages;
+    using Messages;
 
     class Program
     {
         static void Main(string[] args)
         {
-            var eventSubscriptionConfig = HttpEventStoreSubscriberConfiguration.FromAppConfig();
+            var eventStoreConfiguration = EventStoreSubscriptionConfiguration.FromAppConfig();
 
-            var eventStoreSubscriptionEndpoint = HttpEventStoreSubscriberReceivingEndpoint
-                .SubscribeToEventsFrom(HttpEventStoreSubscriptionServerUrl.Parse(eventSubscriptionConfig.Url))
-                .RestartConnectionWhenDownDelay(TimeSpan.FromSeconds(eventSubscriptionConfig.ConnectionDownRestartDelayInSeconds))
-                .RestartConnectionWhenErrorDelay(TimeSpan.FromSeconds(eventSubscriptionConfig.ErrorRestartDelayInSeconds))
+            EventStoreSubscriptionEndpoint eventStoreEndpoint = EventStoreSubscriptionEndpoint
+                .ListenTo(EventStoreUrl.Parse(eventStoreConfiguration.Url))
+                .WithCredentials(EventStoreUserCredentials.Parse(eventStoreConfiguration.UserCredentials.User, eventStoreConfiguration.UserCredentials.Password))
                 .WithEventTypeFromNameResolution(EventTypeFromNameResolver.FromTypesFromAssemblyContaining<AccountCredited>())
                 .WithInMemoryEventIndexStorage();
 
             MessagingFramework.Bootstrap()
-                .SetupHttpEventStoreSubscribing()
-                .ConfigureReceivingEndpoint(eventStoreSubscriptionEndpoint)
+                .ConfigureReceivingEndpoint(eventStoreEndpoint)
                 .ConfigureMessageRouting()
                     .Incoming.ForEvents
                         .Handle<AccountCredited>().With<AccountCreditedHandler>()

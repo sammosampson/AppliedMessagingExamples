@@ -4,9 +4,9 @@
     using SystemDot.Bootstrapping;
     using SystemDot.Ioc;
     using AppliedSystems.Core;
-    using AppliedSystems.Messaging.EventStore.Http.Subscribing;
-    using AppliedSystems.Messaging.EventStore.Http.Subscribing.Configuration;
-    using AppliedSystems.Messaging.EventStore.Http.Subscribing.SystemDot.Bootstrapping;
+    using AppliedSystems.Messaging.EventStore.GES;
+    using AppliedSystems.Messaging.EventStore.GES.Configuration;
+    using AppliedSystems.Messaging.EventStore.GES.Subscribing;
     using AppliedSystems.Messaging.Infrastructure;
     using AppliedSystems.Messaging.Infrastructure.Bootstrapping;
     using AppliedSystems.Messaging.Infrastructure.Events.Streams;
@@ -20,17 +20,15 @@
             var container = new IocContainer();
             container.RegisterInstance<IThirdPartyLibrary, ThirdPartyLibrary>();
 
-            var eventStoreConfiguration = HttpEventStoreSubscriberConfiguration.FromAppConfig();
+            var eventStoreConfiguration = EventStoreSubscriptionConfiguration.FromAppConfig();
 
-            HttpEventStoreSubscriberReceivingEndpoint eventStoreEndpoint = HttpEventStoreSubscriberReceivingEndpoint
-                .SubscribeToEventsFrom(HttpEventStoreSubscriptionServerUrl.Parse(eventStoreConfiguration.Url))
-                .RestartConnectionWhenDownDelay(TimeSpan.FromSeconds(eventStoreConfiguration.ConnectionDownRestartDelayInSeconds))
-                .RestartConnectionWhenErrorDelay(TimeSpan.FromSeconds(eventStoreConfiguration.ErrorRestartDelayInSeconds))
+            EventStoreSubscriptionEndpoint eventStoreEndpoint = EventStoreSubscriptionEndpoint
+                .ListenTo(EventStoreUrl.Parse(eventStoreConfiguration.Url))
+                .WithCredentials(EventStoreUserCredentials.Parse(eventStoreConfiguration.UserCredentials.User, eventStoreConfiguration.UserCredentials.Password))
                 .WithEventTypeFromNameResolution(EventTypeFromNameResolver.FromTypesFromAssemblyContaining<PolicyBound>())
                 .WithInMemoryEventIndexStorage();
 
             MessagingFramework.Bootstrap()
-                .SetupHttpEventStoreSubscribing()
                 .ConfigureReceivingEndpoint(eventStoreEndpoint)
                 .ConfigureMessageRouting().Incoming.ForEvents.Handle<PolicyBound>().With(container.Resolve<PolicyBoundHandler>())
                 .Initialise();

@@ -37,40 +37,36 @@
       <HintPath>packages\AppliedSystems.CodeAnalysis.1.0.97\lib\net\AppliedSystems.CodeAnalysis.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AppliedSystems.Collections, Version=1.0.122.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\AppliedSystems.Collections.1.0.122\lib\net\AppliedSystems.Collections.dll</HintPath>
+    <Reference Include="AppliedSystems.Collections, Version=1.0.123.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\AppliedSystems.Collections.1.0.123\lib\net\AppliedSystems.Collections.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AppliedSystems.Configuration, Version=1.0.65.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\AppliedSystems.Configuration.1.0.65\lib\net\AppliedSystems.Configuration.dll</HintPath>
+    <Reference Include="AppliedSystems.Configuration, Version=1.0.66.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\AppliedSystems.Configuration.1.0.66\lib\net\AppliedSystems.Configuration.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="AppliedSystems.Core, Version=3.0.227.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\AppliedSystems.Core.3.0.227\lib\net\AppliedSystems.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AppliedSystems.Data, Version=2.1.177.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\AppliedSystems.Data.2.1.177\lib\net\AppliedSystems.Data.dll</HintPath>
+    <Reference Include="AppliedSystems.Data, Version=2.1.178.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\AppliedSystems.Data.2.1.178\lib\net\AppliedSystems.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="AppliedSystems.Domain, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\AppliedSystems.Domain.1.0.5\lib\net\AppliedSystems.Domain.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AppliedSystems.Messaging.Data, Version=3.0.399.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\AppliedSystems.Messaging.3.0.399\lib\net\AppliedSystems.Messaging.Data.dll</HintPath>
+    <Reference Include="AppliedSystems.Messaging.Data, Version=3.0.410.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\AppliedSystems.Messaging.3.0.410\lib\net\AppliedSystems.Messaging.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AppliedSystems.Messaging.EventStore.Http, Version=1.1.245.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\AppliedSystems.Messaging.EventStore.Http.1.1.245\lib\net\AppliedSystems.Messaging.EventStore.Http.dll</HintPath>
+    <Reference Include="AppliedSystems.Messaging.EventStore.GES, Version=1.0.56.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\AppliedSystems.Messaging.EventStore.GES.1.0.56\lib\net\AppliedSystems.Messaging.EventStore.GES.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AppliedSystems.Messaging.EventStore.Http.SystemDot, Version=1.1.245.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\AppliedSystems.Messaging.EventStore.Http.1.1.245\lib\net\AppliedSystems.Messaging.EventStore.Http.SystemDot.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="AppliedSystems.Messaging.Infrastructure, Version=3.0.399.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\AppliedSystems.Messaging.3.0.399\lib\net\AppliedSystems.Messaging.Infrastructure.dll</HintPath>
+    <Reference Include="AppliedSystems.Messaging.Infrastructure, Version=3.0.410.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\AppliedSystems.Messaging.3.0.410\lib\net\AppliedSystems.Messaging.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="AppliedSystems.Messaging.Messages, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
@@ -81,8 +77,8 @@
       <HintPath>packages\AppliedSystems.Roslyn.1.0.5\lib\net\AppliedSystems.Roslyn.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="AppliedSystems.Security, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\AppliedSystems.Security.1.0.8\lib\net\AppliedSystems.Security.dll</HintPath>
+    <Reference Include="AppliedSystems.Security, Version=1.0.9.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\AppliedSystems.Security.1.0.9\lib\net\AppliedSystems.Security.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EventStore.ClientAPI, Version=3.9.2.0, Culture=neutral, processorArchitecture=MSIL">

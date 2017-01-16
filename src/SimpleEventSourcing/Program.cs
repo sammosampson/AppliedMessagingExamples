@@ -3,9 +3,8 @@ namespace SimpleEventSourcing
 {
     using System;
     using SystemDot.Bootstrapping;
-    using AppliedSystems.Messaging.EventStore.Http;
-    using AppliedSystems.Messaging.EventStore.Http.Configuration;
-    using AppliedSystems.Messaging.EventStore.Http.SystemDot;
+    using AppliedSystems.Messaging.EventStore.GES;
+    using AppliedSystems.Messaging.EventStore.GES.Configuration;
     using AppliedSystems.Messaging.Infrastructure;
     using AppliedSystems.Messaging.Infrastructure.Bootstrapping;
     using AppliedSystems.Messaging.Infrastructure.Events.Streams;
@@ -15,14 +14,14 @@ namespace SimpleEventSourcing
     {
         static void Main(string[] args)
         {
-            var eventStorageConfig = HttpEventStoreConfiguration.FromAppConfig();
+            var eventStoreConfiguration = EventStoreMessageStorageConfiguration.FromAppConfig();
 
-            var eventStoreEndpoint = HttpEventStoreEndpoint
-               .OnUrl(HttpEventStoreUrl.Parse(eventStorageConfig.Url))
-               .WithEventTypeFromNameResolution(EventTypeFromNameResolver.FromTypesFromAssemblyContaining<DepositMoneyIntoAccount>());
-
+            EventStoreEndpoint eventStoreEndpoint = EventStoreEndpoint
+                .OnUrl(EventStoreUrl.Parse(eventStoreConfiguration.Url))
+                .WithCredentials(EventStoreUserCredentials.Parse(eventStoreConfiguration.UserCredentials.User, eventStoreConfiguration.UserCredentials.Password))
+                .WithEventTypeFromNameResolution(EventTypeFromNameResolver.FromTypesFromAssemblyContaining<AccountCredited>());
+            
             MessagingFramework.Bootstrap()
-                .SetupHttpEventStore()
                 .ConfigureEventStoreEndpoint(eventStoreEndpoint)
                 .ConfigureMessageRouting()
                     .Internal.ForCommands
