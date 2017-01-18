@@ -3,7 +3,8 @@
 ##Setting up
 In the event store portal
 - Go to projections and click 'Enable All' to turn on projections
-- Add a new projection as shown here: 
+- Add a new projection as shown here: ![new projection](https://github.com/sammosampson/AppliedMessagingExamples/edit/master/src/By%20Tenant%20LinkTo%20Projection.PNG "new projection")
+
 - Setup a new competing consumers group as shown here:
 - Now run all the executables in the solution and start publishing
 
