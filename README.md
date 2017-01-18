@@ -20,5 +20,6 @@ Going from the simplest example, and then building on that knowledge with increa
 - [TransactionalEventProcessing](https://github.com/sammosampson/AppliedMessagingExamples/tree/master/src/TransactionalEventProcessing)
 - [MessageHeaders](https://github.com/sammosampson/AppliedMessagingExamples/tree/master/src/MessageHeaders)
 - [Commands](https://github.com/sammosampson/AppliedMessagingExamples/tree/master/src/Commands)
+- [Competing Consumers](https://github.com/sammosampson/AppliedMessagingExamples/blob/master/src/CompetingConsumers)
 - ...More to follow
 
