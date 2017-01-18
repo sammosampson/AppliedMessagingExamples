@@ -12,7 +12,7 @@ In the event store portal
 ```
 
 - Setup a new competing consumers group as shown here:
-![new projection](https://github.com/sammosampson/AppliedMessagingExamples/blob/master/src/CompetingConsumers/By%20Tenant%20LinkTo%20Projection.PNG "new projection")
+![competing consumers](https://github.com/sammosampson/AppliedMessagingExamples/blob/master/src/CompetingConsumers/competing%20consumer%20setup.PNG "competing consumers")
 - Now run all the executables in the solution and start publishing
 
 ##Summary
