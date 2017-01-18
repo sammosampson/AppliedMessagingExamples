@@ -5,7 +5,14 @@ In the event store portal
 - Go to projections and click 'Enable All' to turn on projections
 - Add a new projection as shown here: ![new projection](https://github.com/sammosampson/AppliedMessagingExamples/blob/master/src/CompetingConsumers/By%20Tenant%20LinkTo%20Projection.PNG "new projection")
 
+```fromCategory("competingconsumerspolicy")
+  .whenAny(function(s,e) {
+    linkTo('competingconsumerspolicies-' + e.body.TenantId, e);
+  });
+```
+
 - Setup a new competing consumers group as shown here:
+![new projection](https://github.com/sammosampson/AppliedMessagingExamples/blob/master/src/CompetingConsumers/By%20Tenant%20LinkTo%20Projection.PNG "new projection")
 - Now run all the executables in the solution and start publishing
 
 ##Summary
