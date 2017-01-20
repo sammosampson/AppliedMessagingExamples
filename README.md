@@ -21,5 +21,6 @@ Going from the simplest example, and then building on that knowledge with increa
 - [MessageHeaders](https://github.com/sammosampson/AppliedMessagingExamples/tree/master/src/MessageHeaders)
 - [Commands](https://github.com/sammosampson/AppliedMessagingExamples/tree/master/src/Commands)
 - [Competing Consumers](https://github.com/sammosampson/AppliedMessagingExamples/blob/master/src/CompetingConsumers)
+- [Custom Pipeline](https://github.com/sammosampson/AppliedMessagingExamples/tree/master/src/CustomPipeline}
 - ...More to follow
 
