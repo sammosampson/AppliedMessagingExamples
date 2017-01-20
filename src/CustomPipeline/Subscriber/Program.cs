@@ -32,7 +32,7 @@
                 .Initialise();
 
             MessageReceivingContext.MessageReceiver.StartReceiving(OnError);
-            MessageReceivingContext.Events.Subscribe("CustomPipelineExample");
+            MessageReceivingContext.Events.Subscribe("CustomPipelineExample1");
 
             Console.WriteLine("I Am Subscriber");
             Console.ReadLine();
@@ -58,6 +58,7 @@
         public NotRequired<Message> ProcessMessage(Message message)
         {
             customEventProcessor.Process(
+                message.GetHeader(new MessageNameMessageHeaderKey(), s => s, string.Empty),
                 message.GetHeader(new MessageIdMessageHeaderKey(), s => new Guid(s), Guid.Empty),
                 message.Headers.ToDictionary(h => h.Key, h => h.Value),
                 message.Payload.ToString());
@@ -69,11 +70,17 @@
 
     public class CustomEventProcessor
     {
-        public void Process(Guid messageId, Dictionary<string, string> headers, string body)
+        public void Process(string eventName, Guid messageId, Dictionary<string, string> headers, string body)
         {
+            Console.WriteLine("-------------------------------------------------------------------");
+            Console.WriteLine($"MessageName: (this could be used to lookup in config): {eventName}");
+            Console.WriteLine();
             Console.WriteLine($"MessageId (this could be stored in database at this point and used to stop repeat messages (if it already exists)): {messageId}");
+            Console.WriteLine();
             Console.WriteLine($"Headers: {headers.Describe()}");
+            Console.WriteLine();
             Console.WriteLine($"Body: {body}");
+            Console.WriteLine("-------------------------------------------------------------------");
         }
     }
 

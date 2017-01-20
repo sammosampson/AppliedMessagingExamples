@@ -26,7 +26,7 @@
                     .Outgoing.ForEvents
                         .Send<PolicyBound>()
                             .ViaEndpoint(eventStoreEndpoint)
-                            .ToEventStream("CustomPipelineExample")
+                            .ToEventStream("CustomPipelineExample1")
                 .Initialise();
 
             Console.WriteLine("I Am Publisher");
